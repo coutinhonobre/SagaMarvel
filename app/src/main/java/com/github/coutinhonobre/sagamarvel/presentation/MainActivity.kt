@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         for (x in 1..50){
             movieList.add(
                 Movie(
+                    id = x,
                     title = "Iron Man",
                     year = 2008,
                     rated = "PG-13",
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                     actors = "Robert Downey Jr., Terrence Howard, Jeff Bridges, Gwyneth Paltrow",
                     plot = "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
                     poster = "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX500.jpg",
-                    like = x % 3 == 0,
+                    like = x % 2 == 0,
                     rate = x
                 )
             )
