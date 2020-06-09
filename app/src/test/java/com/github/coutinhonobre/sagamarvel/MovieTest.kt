@@ -39,5 +39,16 @@ class MovieTest {
         assertEquals(false, movie.isFavorite())
     }
 
+    @Test
+    fun checarFilmeNotaCincoTest(){
+        movie.rate = 5
+        assertEquals(5, movie.myRate()!!)
+    }
+
+    @Test
+    fun checarFilmeSemNotaTest(){
+        assertEquals(1, movie.myRate()!!)
+    }
+
 
 }

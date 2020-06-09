@@ -16,9 +16,12 @@ data class Movie(
     val actors : String,
     val plot : String,
     val poster : String,
-    var like: Boolean? = false
+    var like: Boolean? = false,
+    var rate: Int? = 1
 ) : Parcelable {
 
     fun isFavorite()  = this.like
+
+    fun myRate() = this.rate!!
 
 }
