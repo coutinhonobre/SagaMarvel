@@ -6,12 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.github.coutinhonobre.sagamarvel.R
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
+import kotlinx.android.synthetic.main.card_movies.view.*
 
 class MovieAdapter(var movieList: MutableList<Movie>): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindView(movie: Movie){
-
+            itemView.textCardMoviesTitulo.setText(movie.title)
+            itemView.textCardMoviesGenero.setText(movie.genre)
+            itemView.textCardMoviesData.setText(movie.released)
+            itemView.imageButtonCardMoviesLike.isEnabled = movie.like!!
         }
     }
 
