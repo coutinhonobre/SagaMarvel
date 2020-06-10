@@ -29,22 +29,17 @@ class MainActivity : AppCompatActivity() {
        moviesViewModel.buscarMovies()
 
        moviesViewModel.mensagem.observe(this, Observer {
-           if (it.tipo == TipoMensagem.SUCCESS){
-               Toast.makeText(this, it.descricao, Toast.LENGTH_LONG).show()
-           }else{
-               Toast.makeText(this, "teste ${it.descricao}", Toast.LENGTH_LONG).show()
+           if (it.tipo == TipoMensagem.ERROR){
+               viewFlipperMainMovies.displayedChild = 2
+               textViewMainMoviesError.text = it.descricao
            }
        })
 
         moviesViewModel.getMoviesBD().observe(this, Observer {
+            viewFlipperMainMovies.displayedChild = 1
             movieList = it
             recyclerView()
         })
-
-    }
-
-    override fun onResume() {
-        super.onResume()
 
     }
 

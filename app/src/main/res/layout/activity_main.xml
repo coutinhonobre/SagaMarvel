@@ -13,12 +13,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMainMovies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:itemCount="10"
             tools:listitem="@layout/card_movies" />
+
+        <TextView
+            android:id="@+id/textViewMainMoviesError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </ViewFlipper>
 
