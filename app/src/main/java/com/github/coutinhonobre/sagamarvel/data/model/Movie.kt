@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "saga")
+@Entity(tableName = "movie")
 @Parcelize
 data class Movie(
     @ColumnInfo(name = "id")
