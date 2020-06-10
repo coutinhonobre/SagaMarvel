@@ -24,6 +24,8 @@ class AppRepository(val context: Context) {
 
     fun getMovies() = database.Dao().getAllMovies()
 
+    fun update(movie: Movie) = database.Dao().updateMovie(movie)
+
     fun fetchDataFromServerMovies(){
         getUserAccount.getSaga().enqueue(object : Callback<MutableList<Movie>>{
             override fun onFailure(call: Call<MutableList<Movie>>, t: Throwable) {

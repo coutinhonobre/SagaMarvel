@@ -10,11 +10,13 @@ import coil.transform.GrayscaleTransformation
 import com.github.coutinhonobre.sagamarvel.R
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
 import kotlinx.android.synthetic.main.card_movies.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class MovieAdapter(var movieList: MutableList<Movie>): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(var movieList: MutableList<Movie>,var moviesViewModel: MovieViewModel): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(movie: Movie){
+        fun bindView(movie: Movie, moviesViewModel: MovieViewModel){
             itemView.textCardMoviesTitulo.text = movie.title
             itemView.textCardMoviesGenero.text = movie.genre
             itemView.textCardMoviesData.text = movie.released
@@ -28,7 +30,9 @@ class MovieAdapter(var movieList: MutableList<Movie>): RecyclerView.Adapter<Movi
             itemView.imageButtonCardMoviesLike.setOnClickListener {
                 movie.like = !movie.like!!
                 itemView.imageButtonCardMoviesLike.setBackgroundResource(marcarFavorito(movie))
-                Log.e("LIKE", "${movie.like}")
+                GlobalScope.launch {
+                    moviesViewModel.update(movie)
+                }
             }
         }
 
@@ -43,6 +47,6 @@ class MovieAdapter(var movieList: MutableList<Movie>): RecyclerView.Adapter<Movi
     override fun getItemCount() = movieList.size
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindView(movieList[position])
+        holder.bindView(movieList[position], this.moviesViewModel)
     }
 }

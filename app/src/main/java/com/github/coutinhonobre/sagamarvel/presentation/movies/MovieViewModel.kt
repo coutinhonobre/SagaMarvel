@@ -2,6 +2,7 @@ package com.github.coutinhonobre.sagamarvel.presentation.movies
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.github.coutinhonobre.sagamarvel.data.model.Movie
 import com.github.coutinhonobre.sagamarvel.repository.AppRepository
 
 class MovieViewModel(application: Application): AndroidViewModel(application) {
@@ -13,5 +14,7 @@ class MovieViewModel(application: Application): AndroidViewModel(application) {
     fun buscarMovies() = appRepository.fetchDataFromServerMovies()
 
     fun getMoviesBD() = appRepository.getMovies()
+
+    fun update(movie: Movie) = appRepository.update(movie)
 
 }

@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     private fun recyclerView() {
         recyclerViewMainMovies.layoutManager =
             GridLayoutManager(this, 2);
-        var moviesAdapter = MovieAdapter(movieList)
+        var moviesAdapter = MovieAdapter(movieList, moviesViewModel)
         recyclerViewMainMovies.adapter = moviesAdapter
         moviesAdapter.notifyDataSetChanged()
     }
