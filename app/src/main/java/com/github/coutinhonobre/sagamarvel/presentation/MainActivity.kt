@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var moviesViewModel: MovieViewModel
 
-    private lateinit var movieList: MutableList<Movie>
+    private var movieList: MutableList<Movie> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +39,10 @@ class MainActivity : AppCompatActivity() {
 
         moviesViewModel.getMoviesBD().observe(this, Observer {
             if(it.size > 0) visualizarFlipper(1)
-            movieList = it
-            recyclerView()
+            if (it.size != movieList.size){
+                movieList = it
+                recyclerView()
+            }
         })
 
         swipeRefreshMainMovies.setOnRefreshListener {

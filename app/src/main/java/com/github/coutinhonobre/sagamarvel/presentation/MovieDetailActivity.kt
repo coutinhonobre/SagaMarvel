@@ -53,11 +53,13 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
 
 
-                imageMovieDetailImage.load(movie.poster) {
-                    crossfade(true)
-                    placeholder(R.drawable.ic_launcher_foreground)
-                    transformations()
-                    imageMovieDetailImage.scaleType = ImageView.ScaleType.FIT_CENTER
+                if(imageMovieDetailImage.drawable == null) {
+                    imageMovieDetailImage.load(movie.poster) {
+                        crossfade(true)
+                        placeholder(R.drawable.ic_launcher_foreground)
+                        transformations()
+                        imageMovieDetailImage.scaleType = ImageView.ScaleType.FIT_XY
+                    }
                 }
 
                 imageButtonMovieDetailLike.setOnClickListener {

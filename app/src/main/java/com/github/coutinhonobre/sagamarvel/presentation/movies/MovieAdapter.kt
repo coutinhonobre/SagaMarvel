@@ -27,10 +27,12 @@ class MovieAdapter(var movieList: MutableList<Movie>,
             itemView.imageButtonCardMoviesLike.setBackgroundResource(marcarFavorito(movie))
             itemView.imageCardMoviesMiniatura.contentDescription = movie.title
 
-            itemView.imageCardMoviesMiniatura.load(movie.poster) {
-                crossfade(true)
-                placeholder(R.drawable.ic_launcher_foreground)
-                itemView.imageCardMoviesMiniatura.scaleType = ImageView.ScaleType.FIT_XY
+            if (itemView.imageCardMoviesMiniatura.drawable == null){
+                itemView.imageCardMoviesMiniatura.load(movie.poster) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_launcher_foreground)
+                    itemView.imageCardMoviesMiniatura.scaleType = ImageView.ScaleType.FIT_XY
+                }
             }
 
             itemView.imageButtonCardMoviesLike.setOnClickListener {
