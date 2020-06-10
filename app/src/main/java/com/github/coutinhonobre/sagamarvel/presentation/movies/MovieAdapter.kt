@@ -13,9 +13,11 @@ import kotlinx.android.synthetic.main.card_movies.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MovieAdapter(var movieList: MutableList<Movie>,var moviesViewModel: MovieViewModel): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(var movieList: MutableList<Movie>,
+                   var moviesViewModel: MovieViewModel,
+                   private val onItemClickListener: ((movie: Movie) -> Unit)): RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(itemView: View, private val onItemClickListener: ((movie: Movie) -> Unit)) : RecyclerView.ViewHolder(itemView) {
         fun bindView(movie: Movie, moviesViewModel: MovieViewModel){
             itemView.textCardMoviesTitulo.text = movie.title
             itemView.textCardMoviesGenero.text = movie.genre
@@ -34,6 +36,10 @@ class MovieAdapter(var movieList: MutableList<Movie>,var moviesViewModel: MovieV
                     moviesViewModel.update(movie)
                 }
             }
+
+            itemView.setOnClickListener{
+                onItemClickListener.invoke(movie)
+            }
         }
 
         private fun marcarFavorito(movie: Movie) =
@@ -41,7 +47,7 @@ class MovieAdapter(var movieList: MutableList<Movie>,var moviesViewModel: MovieV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.card_movies, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.card_movies, parent, false), onItemClickListener
     )
 
     override fun getItemCount() = movieList.size

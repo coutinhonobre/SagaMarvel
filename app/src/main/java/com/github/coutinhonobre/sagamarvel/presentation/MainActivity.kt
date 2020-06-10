@@ -55,10 +55,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun recyclerView() {
-        recyclerViewMainMovies.layoutManager =
-            GridLayoutManager(this, 2);
-        var moviesAdapter = MovieAdapter(movieList, moviesViewModel)
-        recyclerViewMainMovies.adapter = moviesAdapter
-        moviesAdapter.notifyDataSetChanged()
+        with(recyclerViewMainMovies){
+            layoutManager =
+                GridLayoutManager(this@MainActivity, 2)
+            adapter = MovieAdapter(movieList, moviesViewModel) { movie ->
+                val intent =
+                    movie.id?.let {
+                        MovieDetailActivity.getStartIntent(this@MainActivity,
+                            it, movie.title)
+                    }
+                this@MainActivity.startActivity(intent)
+            }
+        }
     }
 }
