@@ -31,15 +31,23 @@ class MainActivity : AppCompatActivity() {
        moviesViewModel.mensagem.observe(this, Observer {
            if (it.tipo == TipoMensagem.ERROR){
                viewFlipperMainMovies.displayedChild = 2
+               swipeRefreshMainMovies.isRefreshing = false
                textViewMainMoviesError.text = it.descricao
+           }else if (it.tipo == TipoMensagem.SUCCESS){
+               swipeRefreshMainMovies.isRefreshing = false
            }
        })
 
         moviesViewModel.getMoviesBD().observe(this, Observer {
             viewFlipperMainMovies.displayedChild = 1
+            swipeRefreshMainMovies.isRefreshing = false
             movieList = it
             recyclerView()
         })
+
+        swipeRefreshMainMovies.setOnRefreshListener {
+            moviesViewModel.buscarMovies()
+        }
 
     }
 

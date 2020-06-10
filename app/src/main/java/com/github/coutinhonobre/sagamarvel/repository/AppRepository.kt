@@ -57,7 +57,10 @@ class AppRepository(val context: Context) {
     }
 
     private fun adicaoAllMovies(movies: MutableList<Movie>) {
-        database.Dao().addMovies(movies)
+        movies.forEach {
+            if (database.Dao().getUserExists(it.title).size == 0) database.Dao().addMovie(it)
+            else database.Dao().updateMovie(it)
+        }
     }
 
 
