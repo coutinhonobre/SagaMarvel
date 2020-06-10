@@ -47,13 +47,13 @@ data class Movie(
     fun map(): MutableList<Generica> {
         var map = mutableListOf<Generica>()
 
-        map.add(Generica("Title", this.title))
-        map.add(Generica("Year", this.year.toString()))
-        map.add(Generica("rated", this.rated))
-        map.add(Generica("released", this.released))
-        map.add(Generica("runtime", this.runtime))
-        map.add(Generica("genre", this.genre))
-        map.add(Generica("director", this.director))
+        map.add(Generica("Title", this.title, true))
+        map.add(Generica("Year", this.year.toString(), true))
+        map.add(Generica("Rated", this.rated, true))
+        map.add(Generica("Released", this.released, true))
+        map.add(Generica("Runtime", this.runtime, true))
+        map.add(Generica("Genre", this.genre, true))
+        map.add(Generica("Director", this.director, true))
 
         return map
     }

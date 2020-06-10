@@ -15,7 +15,7 @@ class GenericAdapter(var genericList: MutableList<Generica>): RecyclerView.Adapt
         fun bindView(value: Generica){
             itemView.textViewGenerico.text = value.title
             itemView.textViewGenericoDescricao.text = value.description
-            if (value.description.isNotEmpty()) itemView.textViewGenerico.setTypeface(null, Typeface.BOLD)
+            if (value.negito!!) itemView.textViewGenerico.setTypeface(null, Typeface.BOLD)
         }
     }
 

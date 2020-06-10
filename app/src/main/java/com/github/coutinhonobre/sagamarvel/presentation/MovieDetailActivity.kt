@@ -37,29 +37,31 @@ class MovieDetailActivity : AppCompatActivity() {
                 imageMovieDetailImage.contentDescription = movie.title
                 imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
 
-                with(recyclerMovieDetailDados){
-                    layoutManager = LinearLayoutManager(this@MovieDetailActivity)
-                    adapter = GenericAdapter(movie.map())
-                }
+
+                var listaGenerica = movie.map()
+                listaGenerica.add(Generica("Actors", "", true))
 
                 var actorList = mutableListOf<Generica>()
                 movie.actors.split(",").toMutableList().forEach {
                     actorList.add(Generica(it, ""))
                 }
 
-                with(recyclerMovieDetailActors){
-                    layoutManager = LinearLayoutManager(this@MovieDetailActivity)
-                    adapter = GenericAdapter(actorList)
-                }
+                if (actorList.size > 0)
+                    listaGenerica.addAll(actorList)
+
+                listaGenerica.add(Generica("Writer", "", true))
 
                 var writeList = mutableListOf<Generica>()
                 movie.writer.split(",").toMutableList().forEach {
                     writeList.add(Generica(it, ""))
                 }
 
-                with(recyclerMovieDetailWriter){
+                if (writeList.size > 0)
+                    listaGenerica.addAll(writeList)
+
+                with(recyclerMovieDetailDados){
                     layoutManager = LinearLayoutManager(this@MovieDetailActivity)
-                    adapter = GenericAdapter(writeList)
+                    adapter = GenericAdapter(listaGenerica)
                 }
 
 
