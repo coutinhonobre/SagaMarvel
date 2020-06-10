@@ -4,4 +4,12 @@
     <string name="genero">Genero</string>
     <string name="like">Like</string>
     <string name="data">22-01-2020</string>
+    <string name="year">Year</string>
+    <string name="rated">Rated</string>
+    <string name="runtime">Runtime</string>
+    <string name="plot">Plot</string>
+    <string name="director">Director</string>
+    <string name="actors">Actors</string>
+    <string name="generico">generico</string>
+    <string name="writer">Writer</string>
 </resources>

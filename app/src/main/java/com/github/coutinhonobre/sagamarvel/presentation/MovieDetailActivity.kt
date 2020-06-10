@@ -1,20 +1,25 @@
 package com.github.coutinhonobre.sagamarvel.presentation
 
+import android.R.attr.data
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.github.coutinhonobre.sagamarvel.R
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
+import com.github.coutinhonobre.sagamarvel.presentation.detail.DetailAdapter
 import com.github.coutinhonobre.sagamarvel.presentation.movies.MovieViewModel
 import kotlinx.android.synthetic.main.activity_movie_detail.*
-import kotlinx.android.synthetic.main.card_movies.view.*
+import kotlinx.android.synthetic.main.card_dados_basicos.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -31,13 +36,31 @@ class MovieDetailActivity : AppCompatActivity() {
                 var movie = it[0]
                 imageMovieDetailImage.contentDescription = movie.title
                 imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
-                textMovieDetailTitulo.text = movie.title
-                textMovieDetailGenero.text = movie.genre
-                textMovieDetailData.text = movie.released
+                textMovieDetailTitulo.text = "Title: ${movie.title}"
+                textMovieDetailGenero.text =  "Genre: ${movie.genre}"
+                textMovieDetailData.text = "Released: ${movie.released}"
+                textMovieDetailYear.text = "Year: ${movie.year}"
+                textMovieDetailRated.text = "Rated: ${movie.rated}"
+                textMovieDetailRuntime.text = "Runtime: ${movie.runtime}"
+                textMovieDetaildirector.text = "Director: ${movie.director}"
+                textMovieDetailPlot.text = "Plot: ${movie.plot}"
+
+
+
+                with(recyclerMovieDetailActors){
+                    layoutManager = LinearLayoutManager(this@MovieDetailActivity)
+                    adapter = DetailAdapter(movie.actors.split(",").toMutableList())
+                }
+
+                with(recyclerMovieDetailWriter){
+                    layoutManager = LinearLayoutManager(this@MovieDetailActivity)
+                    adapter = DetailAdapter(movie.writer.split(",").toMutableList())
+                }
 
                 imageMovieDetailImage.load(movie.poster) {
                     crossfade(true)
                     placeholder(R.drawable.ic_launcher_foreground)
+                    transformations()
                 }
 
                 imageButtonMovieDetailLike.setOnClickListener {

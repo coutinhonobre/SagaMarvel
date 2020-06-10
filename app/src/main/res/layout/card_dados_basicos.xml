@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="10dp"
+    app:layout_constraintTop_toBottomOf="@+id/imageMovieDetailImage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textMovieDetailTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@string/titulo"
+            android:textColor="#111"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textMovieDetailGenero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/genero"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailTitulo" />
+
+        <TextView
+            android:id="@+id/textMovieDetailData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/data"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailGenero" />
+
+        <TextView
+            android:id="@+id/textMovieDetailYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailData"
+            tools:text="@string/year" />
+
+        <TextView
+            android:id="@+id/textMovieDetailRated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/textMovieDetailRuntime"
+            app:layout_constraintStart_toEndOf="@+id/textMovieDetailYear"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailData"
+            tools:text="@string/rated" />
+
+        <TextView
+            android:id="@+id/textMovieDetailRuntime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailData"
+            tools:text="@string/runtime" />
+
+        <TextView
+            android:id="@+id/textMovieDetaildirector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailYear"
+            tools:text="@string/director" />
+
+        <TextView
+            android:id="@+id/textMovieDetailPlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetaildirector"
+            tools:text="@string/plot" />
+
+        <TextView
+            android:id="@+id/textMovieDetailActors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailPlot"
+            android:text="@string/actors" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerMovieDetailActors"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/card_generico"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailActors"/>
+
+        <TextView
+            android:id="@+id/textMovieDetailWriter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="inherit"
+            android:textColor="#111"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerMovieDetailActors"
+            android:text="@string/writer" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerMovieDetailWriter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/card_generico"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMovieDetailWriter"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
