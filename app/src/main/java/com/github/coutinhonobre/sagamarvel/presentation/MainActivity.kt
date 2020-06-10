@@ -30,8 +30,7 @@ class MainActivity : AppCompatActivity() {
 
        moviesViewModel.mensagem.observe(this, Observer {
            if (it.tipo == TipoMensagem.ERROR){
-               viewFlipperMainMovies.displayedChild = 2
-               swipeRefreshMainMovies.isRefreshing = false
+               visualizarFlipper(2)
                textViewMainMoviesError.text = it.descricao
            }else if (it.tipo == TipoMensagem.SUCCESS){
                swipeRefreshMainMovies.isRefreshing = false
@@ -39,8 +38,7 @@ class MainActivity : AppCompatActivity() {
        })
 
         moviesViewModel.getMoviesBD().observe(this, Observer {
-            viewFlipperMainMovies.displayedChild = 1
-            swipeRefreshMainMovies.isRefreshing = false
+            visualizarFlipper(1)
             movieList = it
             recyclerView()
         })
@@ -49,6 +47,11 @@ class MainActivity : AppCompatActivity() {
             moviesViewModel.buscarMovies()
         }
 
+    }
+
+    private fun visualizarFlipper(displayedChild: Int) {
+        viewFlipperMainMovies.displayedChild = displayedChild
+        swipeRefreshMainMovies.isRefreshing = false
     }
 
     private fun recyclerView() {
