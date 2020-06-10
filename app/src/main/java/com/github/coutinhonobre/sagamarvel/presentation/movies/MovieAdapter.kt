@@ -23,7 +23,6 @@ class MovieAdapter(var movieList: MutableList<Movie>): RecyclerView.Adapter<Movi
             itemView.imageCardMoviesMiniatura.load(movie.poster) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_foreground)
-                transformations(GrayscaleTransformation())
             }
 
             itemView.imageButtonCardMoviesLike.setOnClickListener {

@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 data class Movie(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = 0,
+    var id: Int?,
     @ColumnInfo(name = "title")
     val title : String,
     @ColumnInfo(name = "year")

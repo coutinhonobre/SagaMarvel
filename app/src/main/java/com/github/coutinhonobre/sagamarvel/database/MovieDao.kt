@@ -1,6 +1,7 @@
 package com.github.coutinhonobre.sagamarvel.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
 
@@ -16,8 +17,12 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMovie(movie: Movie)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addMovies(movies: MutableList<Movie>)
+
     @Update
     fun updateMovie(movie: Movie)
+
 
 
 }

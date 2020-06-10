@@ -13,6 +13,7 @@ class MovieTest {
     @Before
     fun inicializar() {
         movie = Movie(
+            1,
             title = "Iron Man",
             year = 2008,
             rated = "PG-13",
