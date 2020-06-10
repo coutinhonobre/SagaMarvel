@@ -24,7 +24,9 @@ class AppRepository(val context: Context) {
 
     fun getMovies() = database.Dao().getAllMovies()
 
-    fun getUserExists(title: String) = database.Dao().getUserExists(title)
+    fun getMoviesExists(title: String) = database.Dao().getMoviesExists(title)
+
+    fun getMovies(title: String, id: Int) = database.Dao().getMovies(title, id)
 
     fun update(movie: Movie) = database.Dao().updateMovie(movie)
 
@@ -62,7 +64,7 @@ class AppRepository(val context: Context) {
 
     private fun adicaoAllMovies(movies: MutableList<Movie>) {
         movies.forEach {
-            if (database.Dao().getUserExists(it.title).size == 0) database.Dao().addMovie(it)
+            if (database.Dao().getMoviesExists(it.title).size == 0) database.Dao().addMovie(it)
             else database.Dao().updateMovie(it)
         }
     }

@@ -12,7 +12,10 @@ interface MovieDao {
     fun getAllMovies(): LiveData<MutableList<Movie>>
 
     @Query("select * from movie where title = :title")
-    fun getUserExists(title: String): MutableList<Movie>
+    fun getMoviesExists(title: String): MutableList<Movie>
+
+    @Query("select * from movie where title = :title and id = :id")
+    fun getMovies(title: String, id: Int): LiveData<MutableList<Movie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMovie(movie: Movie)

@@ -5,13 +5,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.github.coutinhonobre.sagamarvel.R
+import com.github.coutinhonobre.sagamarvel.presentation.movies.MovieViewModel
 
 class MovieDetailActivity : AppCompatActivity() {
+
+    private lateinit var moviesViewModel: MovieViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
+        moviesViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(MovieViewModel::class.java)
+
+        moviesViewModel.getMovieTitle(intent.getStringExtra(EXTRA_TITLE), intent.getIntExtra(EXTRA_ID, 0)).observe(this, Observer {
+            if (it.size > 0){
+                Toast.makeText(this, it.get(0).toString(), Toast.LENGTH_LONG).show()
+            }
+        })
 
     }
 
