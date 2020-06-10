@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
        })
 
         moviesViewModel.getMoviesBD().observe(this, Observer {
-            visualizarFlipper(1)
+            if(it.size > 0) visualizarFlipper(1)
             movieList = it
             recyclerView()
         })
