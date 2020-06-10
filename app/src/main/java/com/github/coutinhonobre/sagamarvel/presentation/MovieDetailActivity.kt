@@ -2,6 +2,7 @@ package com.github.coutinhonobre.sagamarvel.presentation
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
-import coil.size.Scale
 import com.github.coutinhonobre.sagamarvel.R
 import com.github.coutinhonobre.sagamarvel.data.model.Generica
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
@@ -41,23 +41,11 @@ class MovieDetailActivity : AppCompatActivity() {
                 var listaGenerica = movie.map()
                 listaGenerica.add(Generica("Actors", "", true))
 
-                var actorList = mutableListOf<Generica>()
-                movie.actors.split(",").toMutableList().forEach {
-                    actorList.add(Generica(it, ""))
-                }
-
-                if (actorList.size > 0)
-                    listaGenerica.addAll(actorList)
+                atores(movie, listaGenerica)
 
                 listaGenerica.add(Generica("Writer", "", true))
 
-                var writeList = mutableListOf<Generica>()
-                movie.writer.split(",").toMutableList().forEach {
-                    writeList.add(Generica(it, ""))
-                }
-
-                if (writeList.size > 0)
-                    listaGenerica.addAll(writeList)
+                escritores(movie, listaGenerica)
 
                 with(recyclerMovieDetailDados){
                     layoutManager = LinearLayoutManager(this@MovieDetailActivity)
@@ -79,9 +67,36 @@ class MovieDetailActivity : AppCompatActivity() {
                         moviesViewModel.update(movie)
                     }
                 }
+
             }
         })
 
+    }
+
+    private fun escritores(
+        movie: Movie,
+        listaGenerica: MutableList<Generica>
+    ) {
+        var writeList = mutableListOf<Generica>()
+        movie.writer.split(",").toMutableList().forEach {
+            writeList.add(Generica(it, ""))
+        }
+
+        if (writeList.size > 0)
+            listaGenerica.addAll(writeList)
+    }
+
+    private fun atores(
+        movie: Movie,
+        listaGenerica: MutableList<Generica>
+    ) {
+        var actorList = mutableListOf<Generica>()
+        movie.actors.split(",").toMutableList().forEach {
+            actorList.add(Generica(it, ""))
+        }
+
+        if (actorList.size > 0)
+            listaGenerica.addAll(actorList)
     }
 
     companion object {

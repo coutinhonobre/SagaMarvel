@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp">
 
         <ImageView
             android:id="@+id/imageMovieDetailImage"
@@ -24,7 +25,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include layout="@layout/card_dados_basicos" />
+        <include
+            layout="@layout/card_dados_basicos"/>
 
 
         <ImageButton
