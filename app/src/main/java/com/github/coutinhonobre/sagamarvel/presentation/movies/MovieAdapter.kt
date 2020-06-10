@@ -23,6 +23,7 @@ class MovieAdapter(var movieList: MutableList<Movie>,
             itemView.textCardMoviesGenero.text = movie.genre
             itemView.textCardMoviesData.text = movie.released
             itemView.imageButtonCardMoviesLike.setBackgroundResource(marcarFavorito(movie))
+            itemView.imageCardMoviesMiniatura.contentDescription = movie.title
 
             itemView.imageCardMoviesMiniatura.load(movie.poster) {
                 crossfade(true)

@@ -6,4 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MovieDetailActivity">
 
+    <ImageView
+        android:id="@+id/imageMovieDetailImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/titulo"
+        android:focusable="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textMovieDetailTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo"
+        android:textColor="#111"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageMovieDetailImage" />
+
+    <TextView
+        android:id="@+id/textMovieDetailGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/genero"
+        android:textColor="#111"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMovieDetailTitulo" />
+
+    <TextView
+        android:id="@+id/textMovieDetailData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data"
+        android:textAlignment="inherit"
+        android:textColor="#111"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMovieDetailGenero" />
+
+    <ImageButton
+        android:id="@+id/imageButtonMovieDetailLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/ic_baseline_favorite_border_24"
+        android:contentDescription="@string/like"
+        app:layout_constraintBottom_toTopOf="@+id/textMovieDetailTitulo"
+        app:layout_constraintEnd_toEndOf="@+id/imageMovieDetailImage" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

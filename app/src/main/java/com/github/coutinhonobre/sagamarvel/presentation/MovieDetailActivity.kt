@@ -7,8 +7,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.api.load
 import com.github.coutinhonobre.sagamarvel.R
+import com.github.coutinhonobre.sagamarvel.data.model.Movie
 import com.github.coutinhonobre.sagamarvel.presentation.movies.MovieViewModel
+import kotlinx.android.synthetic.main.activity_movie_detail.*
+import kotlinx.android.synthetic.main.card_movies.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MovieDetailActivity : AppCompatActivity() {
 
@@ -22,7 +28,25 @@ class MovieDetailActivity : AppCompatActivity() {
 
         moviesViewModel.getMovieTitle(intent.getStringExtra(EXTRA_TITLE), intent.getIntExtra(EXTRA_ID, 0)).observe(this, Observer {
             if (it.size > 0){
-                Toast.makeText(this, it.get(0).toString(), Toast.LENGTH_LONG).show()
+                var movie = it[0]
+                imageMovieDetailImage.contentDescription = movie.title
+                imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
+                textMovieDetailTitulo.text = movie.title
+                textMovieDetailGenero.text = movie.genre
+                textMovieDetailData.text = movie.released
+
+                imageMovieDetailImage.load(movie.poster) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_launcher_foreground)
+                }
+
+                imageButtonMovieDetailLike.setOnClickListener {
+                    movie.like = !movie.like!!
+                    imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
+                    GlobalScope.launch {
+                        moviesViewModel.update(movie)
+                    }
+                }
             }
         })
 
@@ -39,4 +63,7 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun marcarFavorito(movie: Movie) =
+        if (movie.like!!) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
 }
