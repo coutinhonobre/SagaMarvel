@@ -15,6 +15,8 @@ class MovieViewModel(application: Application): AndroidViewModel(application) {
 
     fun getMoviesBD() = appRepository.getMovies()
 
+    fun getMovieTitle(title: String) = appRepository.getUserExists(title)
+
     fun update(movie: Movie) = appRepository.update(movie)
 
 }

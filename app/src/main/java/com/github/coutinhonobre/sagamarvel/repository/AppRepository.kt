@@ -24,6 +24,8 @@ class AppRepository(val context: Context) {
 
     fun getMovies() = database.Dao().getAllMovies()
 
+    fun getUserExists(title: String) = database.Dao().getUserExists(title)
+
     fun update(movie: Movie) = database.Dao().updateMovie(movie)
 
     fun fetchDataFromServerMovies(){
