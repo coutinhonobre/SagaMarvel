@@ -1,19 +1,19 @@
 package com.github.coutinhonobre.sagamarvel.presentation
 
-import android.R.attr.data
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
+import coil.size.Scale
 import com.github.coutinhonobre.sagamarvel.R
+import com.github.coutinhonobre.sagamarvel.data.model.Generica
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
-import com.github.coutinhonobre.sagamarvel.presentation.detail.DetailAdapter
+import com.github.coutinhonobre.sagamarvel.presentation.detail.GenericAdapter
 import com.github.coutinhonobre.sagamarvel.presentation.movies.MovieViewModel
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.card_dados_basicos.*
@@ -36,31 +36,38 @@ class MovieDetailActivity : AppCompatActivity() {
                 var movie = it[0]
                 imageMovieDetailImage.contentDescription = movie.title
                 imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
-                textMovieDetailTitulo.text = "Title: ${movie.title}"
-                textMovieDetailGenero.text =  "Genre: ${movie.genre}"
-                textMovieDetailData.text = "Released: ${movie.released}"
-                textMovieDetailYear.text = "Year: ${movie.year}"
-                textMovieDetailRated.text = "Rated: ${movie.rated}"
-                textMovieDetailRuntime.text = "Runtime: ${movie.runtime}"
-                textMovieDetaildirector.text = "Director: ${movie.director}"
-                textMovieDetailPlot.text = "Plot: ${movie.plot}"
 
+                with(recyclerMovieDetailDados){
+                    layoutManager = LinearLayoutManager(this@MovieDetailActivity)
+                    adapter = GenericAdapter(movie.map())
+                }
 
+                var actorList = mutableListOf<Generica>()
+                movie.actors.split(",").toMutableList().forEach {
+                    actorList.add(Generica(it, ""))
+                }
 
                 with(recyclerMovieDetailActors){
                     layoutManager = LinearLayoutManager(this@MovieDetailActivity)
-                    adapter = DetailAdapter(movie.actors.split(",").toMutableList())
+                    adapter = GenericAdapter(actorList)
+                }
+
+                var writeList = mutableListOf<Generica>()
+                movie.writer.split(",").toMutableList().forEach {
+                    writeList.add(Generica(it, ""))
                 }
 
                 with(recyclerMovieDetailWriter){
                     layoutManager = LinearLayoutManager(this@MovieDetailActivity)
-                    adapter = DetailAdapter(movie.writer.split(",").toMutableList())
+                    adapter = GenericAdapter(writeList)
                 }
+
 
                 imageMovieDetailImage.load(movie.poster) {
                     crossfade(true)
                     placeholder(R.drawable.ic_launcher_foreground)
                     transformations()
+                    imageMovieDetailImage.scaleType = ImageView.ScaleType.FIT_CENTER
                 }
 
                 imageButtonMovieDetailLike.setOnClickListener {

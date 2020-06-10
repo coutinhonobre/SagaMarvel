@@ -4,11 +4,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.GrayscaleTransformation
 import com.github.coutinhonobre.sagamarvel.R
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
+import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.card_movies.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ class MovieAdapter(var movieList: MutableList<Movie>,
             itemView.imageCardMoviesMiniatura.load(movie.poster) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_foreground)
+                itemView.imageCardMoviesMiniatura.scaleType = ImageView.ScaleType.FIT_XY
             }
 
             itemView.imageButtonCardMoviesLike.setOnClickListener {
