@@ -1,9 +1,13 @@
 package com.github.coutinhonobre.sagamarvel.presentation
 
+import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -26,6 +30,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private lateinit var moviesViewModel: MovieViewModel
 
+    private var filme = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -37,6 +43,8 @@ class MovieDetailActivity : AppCompatActivity() {
                 var movie = it[0]
                 imageMovieDetailImage.contentDescription = movie.title
                 imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
+
+                filme = movie.title
 
                 ratingBar.rating = movie.rate?.toFloat() ?: 1F
 
@@ -55,33 +63,56 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
 
 
-                if(imageMovieDetailImage.drawable == null) {
-                    imageMovieDetailImage.load(movie.poster) {
-                        crossfade(true)
-                        placeholder(R.drawable.ic_launcher_foreground)
-                        transformations()
-                        imageMovieDetailImage.scaleType = ImageView.ScaleType.FIT_XY
-                    }
-                }
+                carregarImagem(movie)
 
-                imageButtonMovieDetailLike.setOnClickListener {
-                    movie.like = !movie.like!!
-                    imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
-                    GlobalScope.launch {
-                        moviesViewModel.update(movie)
-                    }
-                }
+                salvarLike(movie)
 
-                ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-                    movie.rate = ratingBar.rating
-                    GlobalScope.launch {
-                        moviesViewModel.update(movie)
-                    }
-                }
+                salvarRate(movie)
+
+
 
             }
         })
 
+    }
+
+    private fun buscarTrailer(movie: String) {
+        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
+            putExtra(SearchManager.QUERY, "Trailer ${movie}")
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+
+    private fun carregarImagem(movie: Movie) {
+        if (imageMovieDetailImage.drawable == null) {
+            imageMovieDetailImage.load(movie.poster) {
+                crossfade(true)
+                placeholder(R.drawable.ic_launcher_foreground)
+                transformations()
+                imageMovieDetailImage.scaleType = ImageView.ScaleType.FIT_XY
+            }
+        }
+    }
+
+    private fun salvarLike(movie: Movie) {
+        imageButtonMovieDetailLike.setOnClickListener {
+            movie.like = !movie.like!!
+            imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
+            GlobalScope.launch {
+                moviesViewModel.update(movie)
+            }
+        }
+    }
+
+    private fun salvarRate(movie: Movie) {
+        ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            movie.rate = ratingBar.rating
+            GlobalScope.launch {
+                moviesViewModel.update(movie)
+            }
+        }
     }
 
     private fun escritores(
@@ -108,6 +139,23 @@ class MovieDetailActivity : AppCompatActivity() {
 
         if (actorList.size > 0)
             listaGenerica.addAll(actorList)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+                inflater.inflate(R.menu.menu_movie, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_movie_maior -> {
+                buscarTrailer(movie = filme)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
     }
 
     companion object {
