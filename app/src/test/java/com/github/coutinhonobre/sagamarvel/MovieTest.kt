@@ -42,13 +42,14 @@ class MovieTest {
 
     @Test
     fun checarFilmeNotaCincoTest(){
-        movie.rate = 5
-        assertEquals(5, movie.myRate()!!)
+        movie.rate = 5F
+        assertEquals(5F, movie.myRate()!!)
     }
 
     @Test
     fun checarFilmeSemNotaTest(){
-        assertEquals(1, movie.myRate()!!)
+        movie.rate = 1F
+        assertEquals(1F, movie.myRate()!!)
     }
 
 
