@@ -1,5 +1,7 @@
 package com.github.coutinhonobre.sagamarvel.presentation
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -18,11 +20,22 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var moviesViewModel: MovieViewModel
 
+    private lateinit var sharedPreference: SharedPreferences
+
     private var movieList: MutableList<Movie> = mutableListOf()
+
+    private var desc = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sharedPreference =  getSharedPreferences("FILTRO", Context.MODE_PRIVATE)
+        var editor = sharedPreference.edit()
+        editor.putBoolean("melhor",true)
+        editor.commit()
+
+       desc = sharedPreference.getBoolean("melhor",false)
 
        moviesViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application).create(MovieViewModel::class.java)
 
@@ -32,12 +45,13 @@ class MainActivity : AppCompatActivity() {
            if (it.tipo == TipoMensagem.ERROR){
                visualizarFlipper(2)
                textViewMainMoviesError.text = it.descricao
+               moviesViewModel.getMoviesBD(desc)
            }else if (it.tipo == TipoMensagem.SUCCESS){
                swipeRefreshMainMovies.isRefreshing = false
            }
        })
 
-        moviesViewModel.getMoviesBD().observe(this, Observer {
+        moviesViewModel.getMoviesBD(desc).observe(this, Observer {
             if(it.size > 0) visualizarFlipper(1)
             if (it.size != movieList.size){
                 movieList = it

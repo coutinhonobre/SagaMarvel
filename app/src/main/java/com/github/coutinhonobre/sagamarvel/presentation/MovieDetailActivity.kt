@@ -17,6 +17,7 @@ import com.github.coutinhonobre.sagamarvel.presentation.detail.GenericAdapter
 import com.github.coutinhonobre.sagamarvel.presentation.movies.MovieViewModel
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.card_dados_basicos.*
+import kotlinx.android.synthetic.main.card_dados_basicos.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -37,6 +38,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 imageMovieDetailImage.contentDescription = movie.title
                 imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
 
+                ratingBar.rating = movie.rate?.toFloat() ?: 1F
 
                 var listaGenerica = movie.map()
                 listaGenerica.add(Generica("Actors", "", true))
@@ -65,6 +67,13 @@ class MovieDetailActivity : AppCompatActivity() {
                 imageButtonMovieDetailLike.setOnClickListener {
                     movie.like = !movie.like!!
                     imageButtonMovieDetailLike.setBackgroundResource(marcarFavorito(movie))
+                    GlobalScope.launch {
+                        moviesViewModel.update(movie)
+                    }
+                }
+
+                ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                    movie.rate = ratingBar.rating
                     GlobalScope.launch {
                         moviesViewModel.update(movie)
                     }

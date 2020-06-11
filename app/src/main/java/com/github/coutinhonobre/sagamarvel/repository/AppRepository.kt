@@ -22,7 +22,7 @@ class AppRepository(val context: Context) {
 
     private var getUserAccount = ApiRetrofit.RETROFIT_SERVICE
 
-    fun getMovies() = database.Dao().getAllMovies()
+    fun getMovies(desc: Boolean) = if(desc) database.Dao().getAllMoviesDesc() else database.Dao().getAllMovies()
 
     fun getMoviesExists(title: String) = database.Dao().getMoviesExists(title)
 

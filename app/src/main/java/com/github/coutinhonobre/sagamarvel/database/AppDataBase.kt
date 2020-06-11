@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.github.coutinhonobre.sagamarvel.data.model.Movie
 
-@Database(entities = [Movie::class], version = 1)
+@Database(entities = [Movie::class], version = 2)
 abstract class AppDataBase(): RoomDatabase() {
 
     abstract fun Dao(): AppDao

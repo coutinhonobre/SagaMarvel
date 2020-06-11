@@ -8,8 +8,11 @@ import com.github.coutinhonobre.sagamarvel.data.model.Movie
 @Dao
 interface MovieDao {
 
-    @Query("select * from movie order by id desc")
+    @Query("select * from movie order by rate asc")
     fun getAllMovies(): LiveData<MutableList<Movie>>
+
+    @Query("select * from movie order by rate desc")
+    fun getAllMoviesDesc(): LiveData<MutableList<Movie>>
 
     @Query("select * from movie where title = :title")
     fun getMoviesExists(title: String): MutableList<Movie>

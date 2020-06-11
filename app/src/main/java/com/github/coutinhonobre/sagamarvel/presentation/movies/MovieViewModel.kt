@@ -13,7 +13,7 @@ class MovieViewModel(application: Application): AndroidViewModel(application) {
 
     fun buscarMovies() = appRepository.fetchDataFromServerMovies()
 
-    fun getMoviesBD() = appRepository.getMovies()
+    fun getMoviesBD(desc: Boolean? = false) = appRepository.getMovies(desc!!)
 
     fun getMovieTitle(title: String, id: Int) = appRepository.getMovies(title, id)
 

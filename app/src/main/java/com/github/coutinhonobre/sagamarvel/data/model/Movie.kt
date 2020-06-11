@@ -37,7 +37,7 @@ data class Movie(
     @ColumnInfo(name = "like")
     var like: Boolean? = false,
     @ColumnInfo(name = "rate")
-    var rate: Int? = 1
+    var rate: Float? = 1F
 ) : Parcelable {
 
     fun isFavorite() = this.like
