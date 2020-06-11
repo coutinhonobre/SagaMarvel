@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         moviesViewModel.getMoviesBD(desc).observe(this, Observer {
             if (it.size > 0) visualizarFlipper(1)
-            if (it.size != movieList.size || moviesViewModel.mensagem.value!!.tipo == TipoMensagem.REFRESH) {
+            if (it.size != movieList.size) {
                 movieList = it
                 recyclerView()
             }
@@ -72,18 +72,15 @@ class MainActivity : AppCompatActivity() {
         var editor = sharedPreference.edit()
         editor.putBoolean("melhor", value)
         editor.commit()
+        desc = value
+        ocultarMenu(myMenu)
 
-        if (value){
-            myMenu!!.findItem(R.id.menu_main_maior).isVisible = false
-            myMenu!!.findItem(R.id.menu_main_menor).isVisible = true
-        }else{
-            myMenu!!.findItem(R.id.menu_main_maior).isVisible = true
-            myMenu!!.findItem(R.id.menu_main_menor).isVisible = false
-        }
+        moviesViewModel.getMoviesBD(desc).observe(this, Observer {
+            if (it.size > 0) visualizarFlipper(1)
+                movieList = it
+                recyclerView()
 
-        moviesViewModel.getMoviesBD(value)
-        moviesViewModel.mensagem.value!!.tipo = TipoMensagem.REFRESH
-        moviesViewModel.buscarMovies()
+        })
     }
 
     private fun visualizarFlipper(displayedChild: Int) {
@@ -114,7 +111,19 @@ class MainActivity : AppCompatActivity() {
 
         myMenu = menu
 
+        ocultarMenu(menu)
+
         return true
+    }
+
+    private fun ocultarMenu(menu: Menu?) {
+        if (desc) {
+            menu!!.findItem(R.id.menu_main_maior).isVisible = false
+            menu!!.findItem(R.id.menu_main_menor).isVisible = true
+        } else {
+            menu!!.findItem(R.id.menu_main_maior).isVisible = true
+            menu!!.findItem(R.id.menu_main_menor).isVisible = false
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
