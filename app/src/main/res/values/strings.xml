@@ -12,4 +12,6 @@
     <string name="actors">Actors</string>
     <string name="generico">generico</string>
     <string name="writer">Writer</string>
+    <string name="menor">Menor</string>
+    <string name="maior">Maior</string>
 </resources>
