@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -46,8 +47,13 @@ class MainActivity : AppCompatActivity() {
 
         moviesViewModel.mensagem.observe(this, Observer {
             if (it.tipo == TipoMensagem.ERROR) {
-                visualizarFlipper(2)
-                textViewMainMoviesError.text = it.descricao
+                if (movieList.size == 0) {
+                    visualizarFlipper(2)
+                    textViewMainMoviesError.text = it.descricao
+                }else{
+                    swipeRefreshMainMovies.isRefreshing = false
+                    Toast.makeText(this, it.descricao, Toast.LENGTH_LONG).show()
+                }
                 moviesViewModel.getMoviesBD(desc)
             } else if (it.tipo == TipoMensagem.SUCCESS) {
                 swipeRefreshMainMovies.isRefreshing = false
@@ -77,8 +83,8 @@ class MainActivity : AppCompatActivity() {
 
         moviesViewModel.getMoviesBD(desc).observe(this, Observer {
             if (it.size > 0) visualizarFlipper(1)
-                movieList = it
-                recyclerView()
+            movieList = it
+            recyclerView()
 
         })
     }
